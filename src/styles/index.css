@@ -1,12 +1,135 @@
+.BotonEliminarTarea {
+  cursor: pointer;
+  color: red;
+  margin-right: 30px;
+}
 
-/* 
+.contenedor {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+.lista {
+  width: 600px;
+  background-color: white;
+  text-align: left;
+  min-height: 200px;
+  border-radius: 0px;
+  box-shadow: 5px 5px 7px #656565, 0px 0px 7px #ffffff;
+}
 
-*/
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: x-large;
+  margin-top: 20px;
+  border-bottom: solid rgb(199, 239, 255);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.viñeta {
+  margin-right: 10px;
+  color: rgb(230, 14, 14);
+  margin-left: 30px;
+}
+
+.textoTarea {
+  flex: 1;
+  margin-left: 10px;
+}
+
+button:hover {
+  background-color: #cac9c98a;
+  color: grey;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: rgb(122, 122, 122);
+  color: rgb(219, 217, 217);
+  border: 1px;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 200px;
+  height: 40px;
+  margin-top: 0;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.hoja {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(235, 235, 235);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60px;
+}
+
+input {
+  font-size: 20px;
+  font-style: italic;
+  height: 40px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin-right: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.divBotonInput {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.spanNumTareas {
+  font-style: italic;
+  color: #ccc;
+  margin-left: 10px;
+}
+
+.headLista1 {
+  width: 500px;
+  height: 50px;
+  background-color: rgb(150, 150, 150);
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  margin-bottom: -20px;
+  z-index: 2;
+}
+
+.headLista2{
+  width: 130px;
+  height: 130px;
+  background-color: rgb(150, 150, 150);
+  border-radius: 60px;
+  margin-bottom: -50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.headLista3 {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+  margin-bottom: 30px;
+} 
