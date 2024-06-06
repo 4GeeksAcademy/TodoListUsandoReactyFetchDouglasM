@@ -6,6 +6,17 @@ const Tasks = () => {
     const [tasks, setTasks] = useState([]);
     const [tasksName, setTasksName] = useState("");
 
+    useEffect(() => {
+        showTasks();
+    }, []);
+
+    async function showTasks() {
+        const response = await fetch(`https://playground.4geeks.com/todo/users/Douglas`);
+        const data = await response.json();
+        const newTodos = data.todos;
+        setTasks(newTodos);
+    }
+
     const addTask = async () => {
         if (!tasksName) {
             alert("Por Favor Agrega Una Tarea");
@@ -27,28 +38,26 @@ const Tasks = () => {
                 body: JSON.stringify(body)
             });
             const data = await response.json();
-            console.log(data);
-
+            setTasks([...tasks, data]);
         } catch (error) {
             console.log(error);
         }
         setTasksName("");
-        setTasks([...tasks, tasksName]);
     };
 
-    const deleteTask = async () => {
-        const response = await fetch(`https://playground.4geeks.com/todo/todos/${Tasks.id}}`, {
-            method: "DELETE",
-        });
-        if (response.ok) {
-            const data = await response.json();
-            return data;
+    const deleteTask = async (id) => {
+        try {
+            const response = await fetch(`https://playground.4geeks.com/todo/todos/${id}`, {
+                method: "DELETE",
+            });
+            if (response.ok) {
+                setTasks(tasks.filter(task => task.id !== id));
+            } else {
+                console.log('error: ', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.log(error);
         }
-        else {
-            console.log('error: ', response.status, response.statusText);
-            return { error: { status: response.status, statusText: response.statusText } };
-        }
-        
     };
 
     const pressEnter = async (e) => {
@@ -56,16 +65,29 @@ const Tasks = () => {
             await addTask();
         }
     };
-    const deleteAllTasks = async () => {
-        const answer = prompt(
-            "Estás seguro de querer borrar TODAS las tareas? (sí/no)"
-        );
 
-        if (answer.toLowerCase() === "si") {
-            alert("Todas las tareas han sido borradas");
+    const deleteAllTasks = async () => {
+        try {
+            const promises = tasks.map(task =>
+                fetch(`https://playground.4geeks.com/todo/todos/${task.id}`, {
+                    method: "DELETE",
+                })
+            );
+
+            const responses = await Promise.all(promises);
+
+            const allDeleted = responses.every(response => response.ok);
+
+            if (allDeleted) {
+                setTasks([]);
+            } else {
+                console.log('Some tasks could not be deleted');
+            }
+        } catch (error) {
+            console.log(error);
         }
-        setTasks([]);
     };
+
     return (
         <div className="hoja">
             <div className="divBotonInput d-flex">
@@ -90,10 +112,10 @@ const Tasks = () => {
             <div className="d-flex justify-content-center">
                 <div className="lista">
                     <ul>
-                        {tasks.map((task, id) => (
-                            <li key={id}>
+                        {tasks.map((task) => (
+                            <li key={task.id}>
                                 <span className="viñeta">•</span>
-                                <span className="textoTarea">{task}</span>
+                                <span className="textoTarea">{task.label}</span>
                                 <span
                                     className="BotonEliminarTarea"
                                     onClick={() => deleteTask(task.id)}
